@@ -6,7 +6,7 @@ function Conversation(props) {
     <div className="flex-row w-full">
       {props.content.map((item, index) =>
         item.user === 'user' ? (
-          <div className="w-full flex flex-row-reverse mt-2 mb-2">
+          <div className="w-full flex flex-row-reverse mt-2 mb-2" key={index}>
             <div className="basis-1/6 flex justify-center">
 							<img src={user} alt="" className="h-10 w-10" />
 						</div>
@@ -17,7 +17,7 @@ function Conversation(props) {
 						</div>
           </div>
         ) : (
-          <div className="w-full flex flex-row mt-2 mb-2">
+          <div className="w-full flex flex-row mt-2 mb-2" key={index}>
             <div className="basis-1/6 flex justify-center">
 							<img src={chatgpt} alt="" className="h-10 w-10" />
 					  </div>
