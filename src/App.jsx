@@ -36,7 +36,7 @@ function App() {
           <p className="font-san text-lg font-semibold text-white">{botName}</p>
           <p className="font-san text-xs text-white m-1">{botStatus}</p>
         </div>
-        <div className="basis-10/12 flex flex-col mt-10 mb-16 bg-neutral-50">
+        <div className="basis-10/12 flex flex-col mt-12 mb-16 bg-neutral-50">
           <Conversation content={conversations} />
           <div className="bottom" ref={chatBoxBottom}></div>
           <div className="basis-1/12 flex flex-row bg-red-500 items-center p-2 fixed bottom-0 w-full">
