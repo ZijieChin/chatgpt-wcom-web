@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import './App.css'
 import Conversation from './Conversation'
 
@@ -32,6 +32,24 @@ function App() {
     },
   ])
 
+  const chatBoxBottom = useRef(null)
+
+  const onSubmitClick = () => {
+    let question = { user: 'user', content: userInput }
+    setConversations([...conversations, question])
+    setUserInput('')
+  }
+
+  const scrollToBottom = () => {
+    if (chatBoxBottom.current && chatBoxBottom) {
+      chatBoxBottom.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [conversations])
+
   return (
     <div className="App p-0 max-h-full">
       <div className="flex flex-col h-full">
@@ -41,19 +59,25 @@ function App() {
         </div>
         <div className="basis-10/12 flex flex-col mt-10 mb-16 bg-neutral-50">
           <Conversation content={conversations} />
+          <div className="bottom" ref={chatBoxBottom}></div>
           <div className="basis-1/12 flex flex-row bg-red-500 items-center p-2 fixed bottom-0 w-full">
             <div className="basis-4/5 flex items-center">
-              <textarea
+              <input
                 className="rounded-md w-full h-9 outline-none border-slate-50	border-2 bg-neutral-50"
                 onChange={(e) => {
                   setUserInput(e.target.value)
-                  console.log(userInput)
                 }}
                 value={userInput}
+                onKeyUp={(e) => {
+                  if (e.key === 'Enter') onSubmitClick()
+                }}
               />
             </div>
             <div className="basis-1/5 flex items-center">
-              <button className="rounded-md w-full h-9 bg-blue-400 ml-1 outline-none font-semibold text-gray-50">
+              <button
+                onClick={onSubmitClick}
+                className="rounded-md w-full h-9 bg-blue-400 ml-1 outline-none font-semibold text-gray-50"
+              >
                 发 送
               </button>
             </div>
