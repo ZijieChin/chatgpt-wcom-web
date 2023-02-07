@@ -42,7 +42,7 @@ function App() {
           <div className="basis-1/12 flex flex-row bg-red-500 items-center p-2 fixed bottom-0 w-full">
             <div className="basis-4/5 flex items-center">
               <input
-                className="rounded-md w-full h-9 outline-none border-slate-50	border-2 bg-neutral-50"
+                className="rounded-md w-full h-9 outline-none border-slate-50	border-2 bg-neutral-50 shadow-md"
                 onChange={(e) => {
                   setUserInput(e.target.value)
                 }}
