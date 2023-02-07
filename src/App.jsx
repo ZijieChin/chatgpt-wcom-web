@@ -4,18 +4,38 @@ import Conversation from './Conversation'
 
 function App() {
   let botName = '小乐'
+  const api = 'http://localhost:8888/api'
 
   const [botStatus, setBotStatus] = useState('Powered by ChatGPT')
-  const [userInput, setUserInput] = useState()
+  const [userInput, setUserInput] = useState('')
   const [conversations, setConversations] = useState([])
+  const [sessionID, setSessionID] = useState('')
 
   const chatBoxBottom = useRef(null)
 
   const onSubmitClick = () => {
+    setBotStatus('思考中...')
     if (userInput.length > 0) {
-      let question = { user: 'user', content: userInput }
-      setConversations([...conversations, question])
+      setConversations([...conversations, { user: 'user', content: userInput }])
       setUserInput('')
+      console.log(conversations)
+      fetch(api + '/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ uid: sessionID, text: userInput }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setConversations([...conversations, { user: 'bot', content: data.answer }])
+        })
+        .catch((err) => {
+          setConversations([...conversations, { user: 'bot', content: '服务器出错了' }])
+        })
+        .finally(() => {
+          setBotStatus('Powered by ChatGPT')
+        })
     }
   }
 
@@ -28,6 +48,14 @@ function App() {
   useEffect(() => {
     scrollToBottom()
   }, [conversations])
+
+  useEffect(() => {
+    fetch(api)
+      .then((res) => res.json())
+      .then((data) => {
+        setSessionID(data)
+      })
+  }, [])
 
   return (
     <div className="App p-0 h-full bg-neutral-50">
