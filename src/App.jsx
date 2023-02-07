@@ -33,7 +33,7 @@ function App() {
     <div className="App p-0 h-full bg-neutral-50">
       <div className="flex flex-col h-full">
         <div className="basis-1/12 flex flex-col justify-center items-center bg-red-500 fixed w-full top-0">
-          <p className="font-san text-lg font-semibold text-white">{botName}</p>
+          <p className="font-san text-lg font-bold text-white">{botName}</p>
           <p className="font-san text-xs text-white m-1">{botStatus}</p>
         </div>
         <div className="basis-10/12 flex flex-col mt-12 mb-16 bg-neutral-50">
