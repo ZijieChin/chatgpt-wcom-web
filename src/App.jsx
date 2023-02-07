@@ -30,7 +30,6 @@ function App() {
       content:
         '总得来说商用的东西，往往会把很多资源用到极限。这些被写超了预期寿命的ssd，厂家也是不提供保修的，运维发现了ssd损坏，确认一下写入次数超标的也就直接报废处理了。其实消费级SSD这玩意只要是正常使用一般不担心寿命，前提是大厂出品的可靠固态，像那种二手颗粒或者是黑白片SSD另当别论。',
     },
-
   ])
 
   return (
@@ -40,10 +39,8 @@ function App() {
           <p className="font-san text-lg font-semibold text-white">{botName}</p>
           <p className="font-san text-xs text-white">{botStatus}</p>
         </div>
-        <div className="basis-11/12 flex flex-col">
-          <div className="basis-11/12 bg-neutral-50">
-            <Conversation content={conversations} />
-          </div>
+        <div className="basis-10/12 flex flex-col mt-10  bg-neutral-50" style={{marginBottom: "10%"}}>
+          <Conversation content={conversations} />
           <div className="basis-1/12 flex flex-row bg-red-500 items-center p-2 fixed bottom-0 w-full">
             <div className="basis-4/5 flex items-center">
               <textarea
