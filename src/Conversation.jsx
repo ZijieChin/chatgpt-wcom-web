@@ -7,10 +7,10 @@ function Conversation(props) {
       {props.content.map((item, index) =>
         item.user === 'user' ? (
           <div className="w-full flex flex-row-reverse m-2">
-            <div className="basis-1/5 flex items-end justify-center">
-							<img src={user} alt="" className="h-14 w-14" />
+            <div className="basis-1/6 flex items-end justify-center">
+							<img src={user} alt="" className="h-12 w-12" />
 						</div>
-            <div className="basis-3/5">
+            <div className="basis-4/6">
 							<div className="bg-gray-200 p-2 rounded-tl-lg  rounded-tr-lg rounded-bl-lg">
 								{item.content}
 							</div>
@@ -18,10 +18,10 @@ function Conversation(props) {
           </div>
         ) : (
           <div className="w-full flex flex-row">
-            <div className="basis-1/5 flex items-end justify-center">
-							<img src={chatgpt} alt="" className="h-14 w-14" />
+            <div className="basis-1/6 flex items-end justify-center">
+							<img src={chatgpt} alt="" className="h-12 w-12" />
 					  </div>
-            <div className="basis-3/5">
+            <div className="basis-4/6">
 							<div className="bg-red-200 p-2 rounded-tl-lg  rounded-tr-lg rounded-br-lg">
 								{item.content}
 							</div>

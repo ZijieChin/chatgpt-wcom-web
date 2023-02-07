@@ -39,7 +39,7 @@ function App() {
           <p className="font-san text-lg font-semibold text-white">{botName}</p>
           <p className="font-san text-xs text-white">{botStatus}</p>
         </div>
-        <div className="basis-10/12 flex flex-col mt-10  bg-neutral-50" style={{marginBottom: "10%"}}>
+        <div className="basis-10/12 flex flex-col mt-10 mb-16 bg-neutral-50">
           <Conversation content={conversations} />
           <div className="basis-1/12 flex flex-row bg-red-500 items-center p-2 fixed bottom-0 w-full">
             <div className="basis-4/5 flex items-center">
