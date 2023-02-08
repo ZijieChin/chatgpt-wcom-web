@@ -16,9 +16,9 @@ function App() {
   const onSubmitClick = () => {
     setBotStatus('思考中...')
     if (userInput.length > 0) {
-      setConversations([...conversations, { user: 'user', content: userInput }])
+      let question = userInput
+      setConversations([...conversations, { user: 'user', content: question }])
       setUserInput('')
-      console.log(conversations)
       fetch(api + '/chat', {
         method: 'POST',
         headers: {
@@ -28,10 +28,19 @@ function App() {
       })
         .then((res) => res.json())
         .then((data) => {
-          setConversations([...conversations, { user: 'bot', content: data.answer }])
+          let answer = data.answer.replace("<|im_end|>", "")
+          setConversations([
+            ...conversations,
+            { user: 'user', content: question },
+            { user: 'bot', content: answer },
+          ])
         })
         .catch((err) => {
-          setConversations([...conversations, { user: 'bot', content: '服务器出错了' }])
+          setConversations([
+            ...conversations,
+            { user: 'user', content: question },
+            { user: 'bot', content: '服务器出错了' },
+          ])
         })
         .finally(() => {
           setBotStatus('Powered by ChatGPT')
