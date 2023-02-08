@@ -29,7 +29,7 @@ function App() {
       })
         .then((res) => res.json())
         .then((data) => {
-          let answer = data.answer.replace('<|im_end|>', '')
+          let answer = data.answer.replace('<|im_end|>', '').replace('<|im_end|>', '')
           setConversations([...conversations, { user: 'user', content: question }, { user: 'bot', content: answer }])
         })
         .catch((err) => {
