@@ -4,7 +4,8 @@ import Conversation from './Conversation'
 
 function App() {
   let botName = '小乐'
-  const api = 'http://localhost:8888/api'
+  // const api = 'http://localhost:8888/api'
+  const api = 'https://chat.zijieq.com/api'
 
   const [botStatus, setBotStatus] = useState('Powered by ChatGPT')
   const [userInput, setUserInput] = useState('')
@@ -28,12 +29,8 @@ function App() {
       })
         .then((res) => res.json())
         .then((data) => {
-          let answer = data.answer.replace("<|im_end|>", "")
-          setConversations([
-            ...conversations,
-            { user: 'user', content: question },
-            { user: 'bot', content: answer },
-          ])
+          let answer = data.answer.replace('<|im_end|>', '')
+          setConversations([...conversations, { user: 'user', content: question }, { user: 'bot', content: answer }])
         })
         .catch((err) => {
           setConversations([
