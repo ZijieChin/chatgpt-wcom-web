@@ -12,7 +12,7 @@ function Conversation(props) {
             </div>
             <div className="basis-4/6 flex flex-row-reverse">
               <div className="bg-gray-200 p-2 rounded-tl-xl  rounded-br-xl rounded-bl-xl shadow-md -mr-1">
-                <p style={{ wordWrap: 'break-word', wordBreak: 'break-all' }}>{item.content}</p>
+                <p className="whitespace-pre-wrap break-all">{item.content}</p>
               </div>
             </div>
           </div>
@@ -23,7 +23,7 @@ function Conversation(props) {
             </div>
             <div className="basis-4/6 flex">
               <div className="bg-red-200 p-2 rounded-br-xl  rounded-tr-xl rounded-bl-xl shadow-md -ml-1">
-                <p style={{ wordWrap: 'break-word', wordBreak: 'break-all' }}>{item.content}</p>
+                <p className="whitespace-pre-wrap break-all">{item.content}</p>
               </div>
             </div>
           </div>

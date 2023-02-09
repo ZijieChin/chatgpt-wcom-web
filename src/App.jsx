@@ -29,14 +29,15 @@ function App() {
       })
         .then((res) => res.json())
         .then((data) => {
-          let answer = data.answer.replace('<|im_end|>', '').replace('<|im_end|>', '')
+          console.log(data)
+          let answer = data.answer
           setConversations([...conversations, { user: 'user', content: question }, { user: 'bot', content: answer }])
         })
-        .catch((err) => {
+        .catch(() => {
           setConversations([
             ...conversations,
             { user: 'user', content: question },
-            { user: 'bot', content: '服务器出错了' },
+            { user: 'bot', content: '抱歉，当前 ChatGPT 服务器负载较高，请重试。' },
           ])
         })
         .finally(() => {
