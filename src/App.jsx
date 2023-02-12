@@ -4,19 +4,25 @@ import Conversation from './Conversation'
 
 function App() {
   let botName = '小乐'
-  // const api = 'http://localhost:8888/api'
-  const api = 'https://chat.zijieq.com/api'
+  const api = 'http://localhost:8888/api'
+  const RedirectUrl =
+    'https://oa.app.swirecocacola.com/OAuth/Login/Index?Plant=hb&RedirectUrl=http%3A%2F%2Flocalhost%3A5173'
+  // const api = 'https://chat.zijieq.com/api'
 
   const [botStatus, setBotStatus] = useState('Powered by ChatGPT')
   const [userInput, setUserInput] = useState('')
   const [conversations, setConversations] = useState([])
   const [sessionID, setSessionID] = useState('')
+  const [submitBtnDisabled, setSubmitBtnDisabled] = useState(false)
+  const [userid, setUserid] = useState('')
+  const [avatar, setAvatar] = useState('')
 
   const chatBoxBottom = useRef(null)
 
   const onSubmitClick = () => {
-    setBotStatus('思考中...')
     if (userInput.length > 0) {
+      setBotStatus('思考中...')
+      setSubmitBtnDisabled(true)
       let question = userInput
       setConversations([...conversations, { user: 'user', content: question }])
       setUserInput('')
@@ -25,7 +31,7 @@ function App() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ uid: sessionID, text: userInput }),
+        body: JSON.stringify({ uid: sessionID, text: userInput, user: userid }),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -42,6 +48,7 @@ function App() {
         })
         .finally(() => {
           setBotStatus('Powered by ChatGPT')
+          setSubmitBtnDisabled(false)
         })
     }
   }
@@ -57,11 +64,27 @@ function App() {
   }, [conversations])
 
   useEffect(() => {
-    fetch(api)
-      .then((res) => res.json())
-      .then((data) => {
-        setSessionID(data)
-      })
+    if (!sessionStorage.getItem('sessionID')) {
+      let code = new URLSearchParams(window.location.search).get('code')
+      fetch(api + '/userinfo?code=' + code)
+        .then((res) => res.json())
+        .then((data) => {
+          setSessionID(data.uid)
+          setAvatar(data.avatar)
+          setUserid(data.id)
+          sessionStorage.setItem('sessionID', data.uid)
+          sessionStorage.setItem('avatar', data.avatar)
+          sessionStorage.setItem('userid', data.id)
+        })
+        .catch((err) => {
+          console.log(err)
+          window.location.href = RedirectUrl
+        })
+    } else {
+      setSessionID(sessionStorage.getItem('sessionID'))
+      setAvatar(sessionStorage.getItem('avatar'))
+      setUserid(sessionStorage.getItem('userid'))
+    }
   }, [])
 
   return (
@@ -90,7 +113,10 @@ function App() {
             <div className="basis-1/5 flex items-center">
               <button
                 onClick={onSubmitClick}
-                className="rounded-md w-full h-9 bg-blue-400 ml-1 outline-none font-semibold text-gray-50 shadow-md"
+                disabled={submitBtnDisabled}
+                className={`${
+                  submitBtnDisabled ? 'bg-gray-400' : 'bg-blue-400'
+                } rounded-md w-full h-9 ml-1 outline-none font-semibold text-gray-50 shadow-md`}
               >
                 发 送
               </button>

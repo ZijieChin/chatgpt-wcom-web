@@ -8,7 +8,7 @@ function Conversation(props) {
         item.user === 'user' ? (
           <div className="w-full flex flex-row-reverse mt-2 mb-2" key={index}>
             <div className="basis-1/6 flex justify-center">
-              <img src={user} alt="" className="h-10 w-10" />
+              <img src={sessionStorage.getItem("avatar")} alt="" className="h-10 w-10 rounded-full" />
             </div>
             <div className="basis-4/6 flex flex-row-reverse">
               <div className="bg-gray-200 p-2 rounded-tl-xl  rounded-br-xl rounded-bl-xl shadow-md -mr-1">
