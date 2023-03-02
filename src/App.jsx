@@ -3,6 +3,10 @@ import './App.css'
 import Conversation from './Conversation'
 import { useLoading, Oval } from '@agney/react-loading'
 import TextareaAutosize from 'react-textarea-autosize'
+import toast, { Toaster } from 'react-hot-toast'
+
+// 控制用户输入的字符长度
+const wordLimitation = 100
 
 function App() {
   let botName = '小乐'
@@ -15,6 +19,7 @@ function App() {
   const [sessionID, setSessionID] = useState('')
   const [btnDisabled, setBtnDisabled] = useState(false)
   const [textAreaHeight, setTextAreaHeight] = useState('auto')
+  const [inputLength, setInputLength] = useState(0)
 
   const chatBoxBottom = useRef(null)
 
@@ -24,7 +29,7 @@ function App() {
   })
 
   const onSubmitClick = () => {
-    if (userInput.length > 0) {
+    if (userInput.trim().length > 0) {
       setBotStatus('思考中...')
       setBtnDisabled(true)
       let question = userInput
@@ -81,6 +86,7 @@ function App() {
 
   return (
     <div className="App p-0 h-full bg-neutral-50">
+      <Toaster />
       <div className="flex flex-col h-full">
         <div className="basis-1/12 flex flex-col justify-center items-center bg-red-500 fixed w-full top-0">
           <p className="font-san text-lg font-bold text-white mt-1">{botName}</p>
@@ -94,7 +100,15 @@ function App() {
               <TextareaAutosize
                 className="rounded-md w-full outline-none border-slate-50	border-2 bg-neutral-50 shadow-md overflow-hidden resize-none p-1"
                 onChange={(e) => {
-                  setUserInput(e.target.value)
+                  setInputLength(e.target.value.length)
+                  if (e.target.value.length > wordLimitation) {
+                    toast.error(`输入限制${wordLimitation}字，已达限制。`, {
+                      duration: 1000,
+                    })
+                    return
+                  } else {
+                    setUserInput(e.target.value)
+                  }
                   // setTextAreaHeight('auto')
                   // setTextAreaHeight(`${e.target.scrollHeight}px`)
                 }}
