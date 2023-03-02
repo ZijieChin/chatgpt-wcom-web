@@ -12,7 +12,8 @@
     "@agney/react-loading": "^0.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-markdown": "^8.0.5"
+    "react-markdown": "^8.0.5",
+    "react-textarea-autosize": "^8.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
