@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import './App.css'
 import Conversation from './Conversation'
+import { useLoading, Oval} from '@agney/react-loading'
 
 function App() {
   let botName = '小乐'
@@ -11,12 +12,19 @@ function App() {
   const [userInput, setUserInput] = useState('')
   const [conversations, setConversations] = useState([])
   const [sessionID, setSessionID] = useState('')
+  const [btnDisabled, setBtnDisabled] = useState(false)
 
   const chatBoxBottom = useRef(null)
 
+  const { containerProps, indicatorEl } = useLoading({
+    loading: true,
+    indicator: <Oval width="25px" style={{ color: 'white' }} />,
+  })
+
   const onSubmitClick = () => {
-    setBotStatus('思考中...')
     if (userInput.length > 0) {
+      setBotStatus('思考中...')
+      setBtnDisabled(true)
       let question = userInput
       setConversations([...conversations, { user: 'user', content: question }])
       setUserInput('')
@@ -42,6 +50,7 @@ function App() {
         })
         .finally(() => {
           setBotStatus('Powered by ChatGPT')
+          setBtnDisabled(false)
         })
     }
   }
@@ -90,9 +99,16 @@ function App() {
             <div className="basis-1/5 flex items-center">
               <button
                 onClick={onSubmitClick}
+                disabled={btnDisabled}
                 className="rounded-md w-full h-9 bg-blue-400 ml-1 outline-none font-semibold text-gray-50 shadow-md"
               >
-                发 送
+                {btnDisabled ? (
+                  <section {...containerProps}>
+                    {indicatorEl} {/* renders only while loading */}
+                  </section>
+                ) : (
+                  '发 送'
+                )}
               </button>
             </div>
           </div>
