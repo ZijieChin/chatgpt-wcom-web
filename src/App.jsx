@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import './App.css'
 import Conversation from './Conversation'
-import { useLoading, Oval} from '@agney/react-loading'
+import { useLoading, Oval } from '@agney/react-loading'
 
 function App() {
   let botName = '小乐'
@@ -10,9 +10,12 @@ function App() {
 
   const [botStatus, setBotStatus] = useState('Powered by ChatGPT')
   const [userInput, setUserInput] = useState('')
-  const [conversations, setConversations] = useState([{ user: 'bot', content: "您好！我是 **ChatGPT**，今天您想聊点什么？"}])
+  const [conversations, setConversations] = useState([
+    { user: 'bot', content: '您好！我是 **ChatGPT**，今天您想聊点什么？' },
+  ])
   const [sessionID, setSessionID] = useState('')
   const [btnDisabled, setBtnDisabled] = useState(false)
+  const [textAreaHeight, setTextAreaHeight] = useState('auto')
 
   const chatBoxBottom = useRef(null)
 
@@ -51,6 +54,7 @@ function App() {
         .finally(() => {
           setBotStatus('Powered by ChatGPT')
           setBtnDisabled(false)
+          setTextAreaHeight('auto')
         })
     }
   }
@@ -85,15 +89,17 @@ function App() {
           <div className="bottom" ref={chatBoxBottom}></div>
           <div className="basis-1/12 flex flex-row bg-red-500 items-center p-2 fixed bottom-0 w-full">
             <div className="basis-4/5 flex items-center">
-              <input
-                className="rounded-md w-full h-9 outline-none border-slate-50	border-2 bg-neutral-50 shadow-md"
+              <textarea
+                className="rounded-md w-full outline-none border-slate-50	border-2 bg-neutral-50 shadow-md overflow-hidden resize-none"
                 onChange={(e) => {
                   setUserInput(e.target.value)
+                  setTextAreaHeight(`${e.target.scrollHeight}px`)
                 }}
                 value={userInput}
                 onKeyUp={(e) => {
                   if (e.key === 'Enter') onSubmitClick()
                 }}
+                style={{ height: textAreaHeight, minHeight: "52px" }}
               />
             </div>
             <div className="basis-1/5 flex items-center">
