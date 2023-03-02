@@ -1,5 +1,7 @@
 import chatgpt from './chatgpt.svg'
 import user from './user.png'
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
+import './Conversation.css'
 
 function Conversation(props) {
   return (
@@ -23,7 +25,7 @@ function Conversation(props) {
             </div>
             <div className="basis-4/6 flex">
               <div className="bg-red-200 p-2 rounded-br-xl  rounded-tr-xl rounded-bl-xl shadow-md -ml-1">
-                <p className="whitespace-pre-wrap break-all">{item.content}</p>
+                <ReactMarkdown className="whitespace-pre-wrap break-all">{item.content}</ReactMarkdown>
               </div>
             </div>
           </div>
