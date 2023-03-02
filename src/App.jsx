@@ -103,7 +103,7 @@ function App() {
                 className="rounded-md w-full h-9 bg-blue-400 ml-1 outline-none font-semibold text-gray-50 shadow-md"
               >
                 {btnDisabled ? (
-                  <section {...containerProps}>
+                  <section {...containerProps} className="flex justify-center">
                     {indicatorEl} {/* renders only while loading */}
                   </section>
                 ) : (
