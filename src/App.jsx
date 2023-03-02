@@ -10,7 +10,7 @@ function App() {
 
   const [botStatus, setBotStatus] = useState('Powered by ChatGPT')
   const [userInput, setUserInput] = useState('')
-  const [conversations, setConversations] = useState([])
+  const [conversations, setConversations] = useState([{ user: 'bot', content: "您好！我是 **ChatGPT**，今天您想聊点什么？"}])
   const [sessionID, setSessionID] = useState('')
   const [btnDisabled, setBtnDisabled] = useState(false)
 
