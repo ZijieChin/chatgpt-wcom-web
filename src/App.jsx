@@ -116,7 +116,6 @@ function App() {
                 onKeyUp={(e) => {
                   if (e.key === 'Enter') onSubmitClick()
                 }}
-                autoFocus
                 style={{ height: textAreaHeight }}
               />
             </div>
