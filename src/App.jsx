@@ -104,6 +104,8 @@ function App() {
                   if (e.target.value.length > wordLimitation) {
                     toast.error(`输入限制${wordLimitation}字，已达限制。`, {
                       duration: 1000,
+                      id: 'wordLimitation',
+                      position: 'bottom-center',
                     })
                     return
                   } else {
