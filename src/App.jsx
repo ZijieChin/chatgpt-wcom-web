@@ -88,11 +88,13 @@ function App() {
     <div className="App p-0 h-full bg-neutral-50">
       <Toaster />
       <div className="flex flex-col h-full">
+        {/*
         <div className="basis-1/12 flex flex-col justify-center items-center bg-red-500 fixed w-full top-0">
           <p className="font-san text-lg font-bold text-white mt-1">{botName}</p>
           <p className="font-san text-xs text-white m-1">{botStatus}</p>
         </div>
-        <div className="basis-10/12 flex flex-col mt-14 mb-16 bg-neutral-50">
+        */}
+        <div className="basis-10/12 flex flex-col mt-1 mb-16 bg-neutral-50">
           <Conversation content={conversations} />
           <div className="bottom" ref={chatBoxBottom}></div>
           <div className="basis-1/12 flex flex-row bg-red-500 items-center p-2 fixed bottom-0 w-full">
