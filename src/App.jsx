@@ -31,6 +31,7 @@ function App() {
   const onSubmitClick = () => {
     if (userInput.trim().length > 0) {
       setBotStatus('思考中...')
+      document.title = '思考中...'
       setBtnDisabled(true)
       let question = userInput
       setConversations([...conversations, { user: 'user', content: question }])
@@ -59,6 +60,7 @@ function App() {
           setBotStatus('Powered by ChatGPT')
           setBtnDisabled(false)
           setTextAreaHeight('auto')
+          document.title = "问界 Powered by ChatGPT"
         })
     }
   }
